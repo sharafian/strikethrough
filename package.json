@@ -4,7 +4,7 @@
   "description": "The edit-less editor.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack ./src/app.js ./res/dist/app.js && http-server -c-1 ./res",
+    "start": "webpack ./src/app.js ./res/dist/app.js && http-server -c-1 .",
     "build": "webpack ./src/app.js ./res/dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
