@@ -18,7 +18,7 @@
       font-family: 'Droid Serif', serif;
       font-size: 16px;
       line-height: 24px;
-      justify: center;
+      text-align: justify;
       color: #111;
     }
 
@@ -26,7 +26,7 @@
       color: #888;
     }
 
-    .cursor {
+    #cursor {
       border-left: 1px solid #000;
     }
 
@@ -34,12 +34,42 @@
       visibility: hidden;
     }
 
+    #toolbar {
+      padding-top: 2.5em;
+      margin: auto;
+      width: 33em;
+    }
+
+    .tool {
+      /* float: center; */
+    }
+
+    #night-mode {
+      margin: auto;
+      width: 2em;
+      height: 2em;
+      background-color: #111;
+      border-radius: 1em;
+    }
+
+    body {
+      background-color: #fff;
+    }
+
+    #buffer {
+      height: 33em;
+    }
+
   </style>
 </head>
-<body>
-  <h1>Write.</h1>
+<body id="body">
+  <div id="toolbar">
+    <div class="tool" id="night-mode"></div>
+  </div>
   <div id="editor">
-    <span class="cursor"><span class="invis">M</span></span>
+    <span id="cursor"><span class="invis">M</span></span>
+  </div>
+  <div id="buffer">
   </div>
 </body>
 </html>
