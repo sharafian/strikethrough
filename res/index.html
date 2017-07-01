@@ -1,0 +1,45 @@
+<html>
+<head>
+  <meta charset="utf-8" />
+  <script src="/dist/app.js" ></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Droid+Serif"
+    rel="stylesheet" />
+  <style>
+    h1 {
+      font-family: 'Droid Serif', serif;
+      text-align: center;
+    }
+
+    #editor {
+      margin: auto;
+      margin-top: 5em;
+      width: 33em;
+      font-family: 'Droid Serif', serif;
+      font-size: 16px;
+      line-height: 24px;
+      justify: center;
+      color: #111;
+    }
+
+    .drying {
+      color: #888;
+    }
+
+    .cursor {
+      border-left: 1px solid #000;
+    }
+
+    .invis {
+      visibility: hidden;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Write.</h1>
+  <div id="editor">
+    <span class="cursor"><span class="invis">M</span></span>
+  </div>
+</body>
+</html>
