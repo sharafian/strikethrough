@@ -1,23 +1,22 @@
 const debug = require('debug')('strikethrough')
 const $ = require('jquery')
 const K_BACKSPACE = 8
+const K_NEWLINE = 13
 
 function run () {
   debug('starting editor.')
 
-  const state = { text: '', stop: 0, backtrack: 20 }
+  const state = { text: [], stop: 0, backtrack: 20 }
   const editor = $('#editor')
 
   function update () {
     const content = 
-      state.text.slice(0, state.stop) + '<span class="drying">' +
-      state.text.slice(state.stop, state.text.length) + '</span>'
-
-    console.log(content)
+      state.text.slice(0, state.stop).join('') + '<span class="drying">' +
+      state.text.slice(state.stop, state.text.length).join('') + '</span>'
 
     editor.html(
       content +
-      '<span class="cursor"><span class="invis">M</span></span>')
+      '<span id="cursor"><span class="invis">M</span></span>')
   }
 
   function backspace () {
@@ -26,49 +25,38 @@ function run () {
     update()
   }
 
-  $(window).keypress(function (event) {
+  function to_string (key) {
+    if (key === K_NEWLINE) return '<br />'
+    return String.fromCharCode(key)
+  }
+
+  $(window).keypress((event) => {
     event.preventDefault()
     const key = event.which
 
-    state.text += String.fromCharCode(key)
-    state.stop = Math.max(
-      state.stop,
-      state.text.length - state.backtrack)
+    state.text.push(to_string(key))
+    const new_stop = state.text.length - state.backtrack
+
+    state.stop = Math.max(state.stop, new_stop)
     update()
   })
 
-  $(window).keydown(function (event) {
+  $(window).keydown((event) => {
     if (event.which === K_BACKSPACE) { // if it's delete
       event.preventDefault()
-
-      /*
-      const selection = document.getSelection()
-      console.log(selection)
-      */
-
       backspace()
-      /*
-      if (!selection.anchorNode) {
-        backspace()
-        return
-      }
-
-      const range = selection.getRangeAt(0)
-      debug('range is', range)
-
-      if (range.startOffset === range.endOffset) {
-        backspace()
-        return
-      }
-
-      debug('striking through')
-      state.text =
-        state.text.slice(0, range.startOffset) + '<s>' +
-        state.text.slice(range.startOffset, range.endOffset) + '</s>' +
-        state.text.slice(range.endOffset, state.text.length)
-      update()
-      */
     }
+  })
+
+  let night = false
+  $('#night-mode').click(() => {
+    night = !night
+    
+    $('#body').css('background-color', night ? '#111' : '#fff')
+    $('#editor').css('color', night ? '#eee' : '#111')
+    $('#night-mode').css('background-color', night ? '#fff' : '#111')
+    $('.drying').css('color', night ? '#aaa' : '#888')
+    $('#cursor').css('border-color', night ? '#fff' : '#111')
   })
 }
 
